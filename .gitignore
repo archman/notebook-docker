@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+wheel-packages
+debian-packages
 
 # C extensions
 *.so

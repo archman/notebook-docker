@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+#
+# user-customized pip command.
+#
+# Tong Zhang <zhangt@frib.msu.edu>
+# 2017-07-10 08:53:17 AM EDT
+#
+
+PIP="/usr/local/bin/pip"
+whlpath="/phyapps/wheelhouse"
+
+print_help() {
+    echo "Usage: `basename $0` -n pkg_name [-h host] [-m mirror] [-u]"
+    exit 1
+}
+
+[[ $# -lt 1 ]] && print_help
+
+upgrade=""
+host="beher.cts"
+while [[ $# -gt 1 ]]
+do
+    key="$1"
+    case $key in
+        -n|--name)
+            pkgname="$2"
+            shift
+            ;;
+        -u|--upgrade)
+            upgrade="--upgrade"
+            ;;
+        -m|--mirror)
+            whlpath="$2"
+            shift
+            ;;
+        -h|--host)
+            host="$2"
+            shift
+            ;;
+        *)
+            ;;
+    esac
+    shift
+done
+
+${PIP} install ${upgrade} \
+    --no-index --find-links=${whlpath}/${pkgname} \
+    ${pkgname} --trusted-host ${host}

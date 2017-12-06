@@ -1,0 +1,8 @@
+dateutils
+requests
+lmfit
+numpy
+scipy
+matplotlib
+jupyter
+opencv-python
